@@ -1,0 +1,10 @@
+1. We use a vector of User pointers rather than a vector of users because its more efficient.
+2. Its just more efficient to use references rather than returning the actual set because we dont have to waste time making copies of the set when we dont need to.
+3. Sets have faster lookups O(log n) compared to the O(n) of vectors. Additionally, sets are unique which is good because we wouldn't want to have duplicates of the same users.
+4. Using the stack wont work because the User is going to be wiped after the function runs since its stored on the stack.
+5.
+User::addFriend: O(log n) where n is the amount of friends the user has. This is because addfriend simply inserts a new object into the set.
+Network::addConnection: O(n) The function calls getID() which iterates throught the list of users. It then also calls addFriend() but the runtime of that is independent and smaller.
+Network::deleteConnection: O(n) Same as add connection where getID() is called.
+Network::numUsers: O(1) The size of vectors are already known and stored in the vector.
+6. 2.5-3hrs

@@ -1,0 +1,21 @@
+1. In step 1, which Linux commands did you use to (1) create a new folder and (2) copy
+your files into a new folder?
+        I used mkdir to make a new folder and cp to copy.
+2. Could any of the breadth-first-search questions (shortestPath and distanceUser) be
+solved with depth-first-search? Why or why not?
+        Shortest path and Distance user cannot be solved by a DFS because diving all the way to the leaf nodes leads to a path but that path is not guaranteed to be the most optimal path.
+3. Could the depth-first-search question (groups) be solved with breadth-first-search?
+Why or why not?
+        Yes, groups can be solved using a BFS algorithm using the same method where we keep running BFS on a unvisited user to form a new group and repeat until every user has been visited.
+4. Can the suggestFriends problem be solved without breadth-first-search and depth-first-
+search?
+        Yes, the suggestFriends problem can be solved without BFS or DFS. For example, you can brute force and compare every user to find the ones with the most similarity.
+5. Using big-O notation, what is the runtime of your shortestPath implementation in
+terms of n (the number of vertices) and/or m (the number of edges)?
+        O(n+m) since its dominated by the BFS algo.
+6. Using big-O notation, what is the runtime of your groups implementation in terms of
+n (the number of vertices) and/or m (the number of edges)?
+        O(n+m)
+7. In hours, (approximately) how much time did you spend on this assignment? (there
+are no wrong answers)
+        around 2hrs
