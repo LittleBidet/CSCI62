@@ -1,0 +1,10 @@
+1. Why do we store the posts as a vector of Post pointers, and not as a vector of Posts?
+There are two main reasons.
+        We want to store the posts as a vector of post pointers because it allows us to also store LinkPost objects by casting them into Post. Morevover, it also allows for LinkPost objects to retain their unique traits.
+2. In LinkPost::toString(), why can you not access the message field directly?
+        We cannot access the message field directly because message is a private variable in Post which forces us to use a getter.
+3. You want to call the Post::toString method for Posts and LinkPost::toString
+method for LinkPost in User::getPostsString. What keyword makes this possible, and where does that keyword go?
+        The virtual keyword makes this possible. It goes in the function declaration of the parent class.
+4. In hours, (approximately) how much time did you spend on this assignment? (thereare no wrong answers)
+        2-3 hours;
