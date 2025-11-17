@@ -54,7 +54,6 @@ void MainWindow::profileState(){
     ui->loginButton->hide();
     ui->loginInput->hide();
     ui->loginPrompt->hide();
-
     ui->userLabel->show();
     ui->friendList->show();
     ui->post1->show();
@@ -135,7 +134,7 @@ void MainWindow::displayProfile(User* currentUser)
     }
 
     //Five most recent posts
-    QLabel* postLabels[] = {ui->post1, ui->post2, ui->post3, ui->post4, ui->post5};
+    QLabel* postLabels[] ={ui->post1, ui->post2, ui->post3, ui->post4, ui->post5};
     std::vector<Post*> posts = social_network->getPosts(currentUser->getId());
     int postCount = 0;
     for(int i = posts.size() - 1; i >= 0 && postCount < 5; i--){
