@@ -1,8 +1,8 @@
 #include "user.h"
 
-User::User(): id_(1), name_("James James"), year_(2000), zip_(11111){};
+User::User(): id_(1), name_("James James"), year_(2000), zip_(11111), darkmode_(false) {};
 User::User(int id, std::string name, int year, int zip, std::set<int> friends)
-        : id_(id), name_(name), year_(year), zip_(zip) , friends_(friends){};
+        : id_(id), name_(name), year_(year), zip_(zip) , friends_(friends), darkmode_(false) {};
 
 int User::getId() const{
         return id_;
@@ -24,4 +24,10 @@ void User::addFriend(int id){
 }
 void User::deleteFriend(int id){
         friends_.erase(id);
+}
+bool User::getDarkMode() const {
+        return darkmode_;
+}
+void User::setDarkMode(bool on) {
+        darkmode_ = on;
 }

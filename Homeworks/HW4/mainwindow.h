@@ -57,6 +57,26 @@ private:
     //Pre: N/A
     //Post: updates the users file
     void updateUsers();
+    //Pre: N/A
+    //Post: Switches the theme for the current user
+    void themeTogglePressed();
+    //Pre: A QString text pointer
+    //Post: Updates the search suggestions after every change to the QString
+    void searchTextChanged(const QString &text);
+    //Pre: A row and column corresponding to the location in the table that was clicked.
+    //Post: Changes the screen to the clicked user's profile
+    void searchSuggestionClicked(int row, int col);
+    //Pre: n/a
+    //Post: Increments the like counter for the corresponding post.
+    void likePost1();
+    void likePost2();
+    void likePost3();
+    void likePost4();
+    void likePost5();
+    //Pre: n/a
+    //Post: Applies the User's saved theme
+    void applyTheme();
+
 
 
     //Current logged in user
@@ -64,5 +84,6 @@ private:
     //User of the friend we are looking at
     User* profile_user;
     Network* social_network;
+    std::vector<Post*> displayedPosts;
 };
 #endif // MAINWINDOW_H

@@ -36,3 +36,7 @@ std::string LinkPost::getURL(){
 std::string LinkPost::toString(){
         return getMessage() + " (url: " + getURL() + ") (" + std::to_string(getLikes()) + " likes)";
 }
+
+void Post::like() {
+        likes_++;
+}

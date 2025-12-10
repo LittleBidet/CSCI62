@@ -236,7 +236,7 @@ void Network::addPost(Post* post){
         int user = post->getProfileId();
         if(user < users_.size() && user >= 0){
                 int newId = 0;
-                for(auto userPosts : posts_) {
+                for(auto userPosts : posts_){
                     newId += userPosts.size();
                 }
                 post->setMessageId(newId);
@@ -332,4 +332,21 @@ int Network::writePosts(char* fname){
                 myfile << '\t' << allPosts[i]->getURL() << '\n';
         }
         return numPosts;
+}
+
+std::vector<int> Network::suggestUsers(std::string substring){
+        std::vector<int> matches;
+        std::string searchLower = substring;
+        std::transform(searchLower.begin(), searchLower.end(), searchLower.begin(), ::tolower);
+
+        for(User* u : users_){
+        std::string name = u->getName();
+        std::string nameLower = name;
+        std::transform(nameLower.begin(), nameLower.end(), nameLower.begin(), ::tolower);
+
+        if(nameLower.find(searchLower) != std::string::npos){
+                matches.push_back(u->getId()); // Pushing ID instead of Name
+        }
+        }
+        return matches;
 }

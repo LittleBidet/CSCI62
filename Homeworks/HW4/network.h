@@ -91,6 +91,9 @@ class Network{
                 //Post: Writes in Posts from the network to the file.
                 int writePosts(char* fname);
 
+                //Pre: A string input.
+                //Post: Returns a list of all ids of users whose names contain the input as a substring
+                std::vector<int> suggestUsers(std::string substring);
 
         private:
                 std::vector<User*> users_;

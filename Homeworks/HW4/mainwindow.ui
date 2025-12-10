@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1022</width>
-    <height>713</height>
+    <width>766</width>
+    <height>705</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -64,20 +64,26 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>160</y>
-      <width>801</width>
-      <height>31</height>
+      <y>110</y>
+      <width>411</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="text">
      <string>TextLabel</string>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QPushButton" name="returnButton">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>610</y>
+      <x>300</x>
+      <y>510</y>
       <width>131</width>
       <height>32</height>
      </rect>
@@ -112,8 +118,8 @@
    <widget class="QPushButton" name="addButton">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>610</y>
+      <x>190</x>
+      <y>510</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -125,8 +131,8 @@
    <widget class="QPushButton" name="postButton">
     <property name="geometry">
      <rect>
-      <x>900</x>
-      <y>590</y>
+      <x>420</x>
+      <y>550</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -138,24 +144,131 @@
    <widget class="QTextEdit" name="postInput">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>590</y>
+      <x>200</x>
+      <y>550</y>
       <width>201</width>
       <height>31</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="likeButton1">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>140</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Like</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="likeButton2">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>210</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Like</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="likeButton3">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>290</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Like</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="likeButton4">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>380</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Like</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="likeButton5">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>440</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Like</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="themeToggle">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dark Mode</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="searchList">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>171</width>
+      <height>341</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="searchInput">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>40</y>
+      <width>351</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="post2">
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>210</y>
-      <width>791</width>
-      <height>31</height>
+      <y>190</y>
+      <width>411</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="text">
      <string>TextLabel</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="post3">
@@ -163,38 +276,56 @@
      <rect>
       <x>200</x>
       <y>270</y>
-      <width>601</width>
-      <height>31</height>
+      <width>411</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="text">
      <string>TextLabel</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="post4">
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>330</y>
-      <width>811</width>
-      <height>31</height>
+      <y>350</y>
+      <width>431</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="text">
      <string>TextLabel</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="post5">
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>380</y>
-      <width>811</width>
-      <height>31</height>
+      <y>430</y>
+      <width>411</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="text">
      <string>TextLabel</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
@@ -203,7 +334,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1022</width>
+     <width>766</width>
      <height>37</height>
     </rect>
    </property>

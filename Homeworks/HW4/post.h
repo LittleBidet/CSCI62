@@ -35,6 +35,9 @@ class Post{
                 //Pre: n/a
                 //Post: Virtual function, prints the message content and likes of a post
                 std::string virtual toString();
+                //Pre: n/a
+                //Post: Increments the like counter of the post
+                void like();
         private:
                int messageId_;
                int profileId_;

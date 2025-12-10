@@ -29,6 +29,21 @@ MainWindow::MainWindow(QWidget *parent)
     ui->postButton->hide();
     ui->postInput->hide();
 
+    ui->post1->hide();
+    ui->likeButton1->hide();
+    ui->post2->hide();
+    ui->likeButton2->hide();
+    ui->post3->hide();
+    ui->likeButton3->hide();
+    ui->post4->hide();
+    ui->likeButton4->hide();
+    ui->post5->hide();
+    ui->likeButton5->hide();
+    ui->themeToggle->hide();
+    ui->searchList->hide();
+    ui->searchInput->hide();
+
+
     //initial login state
     loginState();
 
@@ -39,6 +54,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->addButton, &QPushButton::clicked, this, &MainWindow::addFriendPressed);
     connect(ui->recList, &QTableWidget::cellClicked, this, &MainWindow::suggestedPressed);
     connect(ui->postButton, &QPushButton::clicked, this, &MainWindow::addPostPressed);
+
+    connect(ui->themeToggle, &QPushButton::clicked, this, &MainWindow::themeTogglePressed);
+    connect(ui->searchInput, &QLineEdit::textChanged, this, &MainWindow::searchTextChanged);
+    connect(ui->searchList, &QTableWidget::cellClicked, this, &MainWindow::searchSuggestionClicked);
+
+    connect(ui->likeButton1, &QPushButton::clicked, this, &MainWindow::likePost1);
+    connect(ui->likeButton2, &QPushButton::clicked, this, &MainWindow::likePost2);
+    connect(ui->likeButton3, &QPushButton::clicked, this, &MainWindow::likePost3);
+    connect(ui->likeButton4, &QPushButton::clicked, this, &MainWindow::likePost4);
+    connect(ui->likeButton5, &QPushButton::clicked, this, &MainWindow::likePost5);
 }
 
 MainWindow::~MainWindow()
@@ -49,6 +74,7 @@ void MainWindow::loginState(){
     ui->loginButton->show();
     ui->loginInput->show();
     ui->loginPrompt->show();
+
 }
 void MainWindow::profileState(){
     ui->loginButton->hide();
@@ -64,6 +90,11 @@ void MainWindow::profileState(){
     ui->postButton->show();
     ui->postInput->show();
     ui->recList->show();
+
+    ui->themeToggle->show();
+    ui->searchList->hide();
+    ui->searchInput->show();
+
 }
 void MainWindow::loginHandler()
 {
@@ -78,12 +109,14 @@ void MainWindow::loginHandler()
     else{
         user = social_network->getUser(userId);
         profile_user = user;
+        applyTheme();
         displayProfile(user);
     }
 }
 
 void MainWindow::displayProfile(User* currentUser)
 {
+    displayedPosts.clear();
     //switches to the profile state
     profileState();
     //Own Profile
@@ -100,6 +133,11 @@ void MainWindow::displayProfile(User* currentUser)
         ui->returnButton->show();
         ui->addButton->show();
         ui->recList->hide();
+        ui->likeButton1->show();
+        ui->likeButton2->show();
+        ui->likeButton3->show();
+        ui->likeButton4->show();
+        ui->likeButton5->show();
     }
 
     //Sets up the friend table
@@ -133,8 +171,14 @@ void MainWindow::displayProfile(User* currentUser)
         curRow++;
     }
 
+
     //Five most recent posts
     QLabel* postLabels[] ={ui->post1, ui->post2, ui->post3, ui->post4, ui->post5};
+    QPushButton* likeButtons[] ={ui->likeButton1, ui->likeButton2, ui->likeButton3, ui->likeButton4, ui->likeButton5};
+    for(int i = 0; i < 5; i++){
+        postLabels[i]->hide();
+        likeButtons[i]->hide();
+    }
     std::vector<Post*> posts = social_network->getPosts(currentUser->getId());
     int postCount = 0;
     for(int i = posts.size() - 1; i >= 0 && postCount < 5; i--){
@@ -142,6 +186,10 @@ void MainWindow::displayProfile(User* currentUser)
         std::string postText = social_network->postDisplayString(post);
         postLabels[postCount]->setText(QString::fromStdString(postText));
         postLabels[postCount]->show();
+        if(post){
+            likeButtons[postCount]->show();
+        }
+        displayedPosts.push_back(post);
         postCount++;
     }
 }
@@ -154,33 +202,24 @@ void MainWindow::friendPressed(int row)
     displayProfile(profile_user);
 }
 
-void MainWindow::backButtonPressed()
-{
+void MainWindow::backButtonPressed(){
     profile_user = user;
     displayProfile(user);
 }
-void MainWindow::suggestedPressed(int row)
-{
+void MainWindow::suggestedPressed(int row){
     QTableWidgetItem* item = ui->recList->item(row, 0);
     int suggestedId = item->data(Qt::UserRole).toInt();
 
     //Adds the suggested as a friend
     social_network->addConnection(user->getName(), social_network->getUser(suggestedId)->getName());
-    //Updates the user file
-    social_network->writeUsers("users.txt");
     displayProfile(user);
 
 }
-void MainWindow::addFriendPressed()
-{
+void MainWindow::addFriendPressed(){
     social_network->addConnection(user->getName(), profile_user->getName());
-    //Updates the user file
-    social_network->writeUsers("users.txt");
-    //refresh profile
     displayProfile(profile_user);
 }
-void MainWindow::addPostPressed()
-{
+void MainWindow::addPostPressed(){
     std::string message = ui->postInput->toPlainText().toStdString();
     if(!message.empty()){
         int authorId = user->getId();
@@ -189,6 +228,94 @@ void MainWindow::addPostPressed()
         social_network->addPost(newPost);
         social_network->writePosts("posts.txt");
         ui->postInput->clear();
+        displayProfile(profile_user);
+    }
+}
+void MainWindow::themeTogglePressed(){
+    bool currentMode = user->getDarkMode();
+    user->setDarkMode(!currentMode);
+    applyTheme();
+}
+void MainWindow::applyTheme(){
+    if(user->getDarkMode()){
+        this->setStyleSheet("QMainWindow{ background-color: #37353E; color: #D3DAD9; }"
+        "QLabel{ color: #D3DAD9; }"
+        "QTableWidget{ background-color: #37353E; color: #D3DAD9; }"
+        "QTextEdit, QLineEdit{ background-color: #44444E; color: #D3DAD9; }");
+    }
+    else{
+        this->setStyleSheet("");
+    }
+}
+void MainWindow::searchTextChanged(const QString &text){
+    std::string query = text.toStdString();
+    if(query.empty()){
+        ui->searchList->hide();
+        return;
+    }
+
+    ui->searchList->show();
+    ui->searchList->clearContents();
+    std::vector<int> matches = social_network->suggestUsers(query);
+
+    ui->searchList->setRowCount(matches.size());
+    ui->searchList->setColumnCount(1);
+
+    int curRow = 0;
+    for(int matchedId : matches){
+        User* matchedUser = social_network->getUser(matchedId);
+        QTableWidgetItem* item = new QTableWidgetItem(QString::fromStdString(matchedUser->getName()));
+        item->setData(Qt::UserRole, matchedId);
+        ui->searchList->setItem(curRow, 0, item);
+        curRow++;
+    }
+}
+void MainWindow::searchSuggestionClicked(int row, int col)
+{
+    QTableWidgetItem* item = ui->searchList->item(row, 0);
+    if(!item) return;
+
+    int userId = item->data(Qt::UserRole).toInt();
+
+    //Switch to that user
+    profile_user = social_network->getUser(userId);
+    displayProfile(profile_user);
+    //Resets the search bar
+    ui->searchInput->clear();
+    ui->searchList->hide();
+}
+void MainWindow::likePost1(){
+    if(displayedPosts.size() > 0){
+        displayedPosts[0]->like();
+        social_network->writePosts("posts.txt");
+        displayProfile(profile_user);
+    }
+}
+void MainWindow::likePost2(){
+    if(displayedPosts.size() > 1){
+        displayedPosts[1]->like();
+        social_network->writePosts("posts.txt");
+        displayProfile(profile_user);
+    }
+}
+void MainWindow::likePost3(){
+    if(displayedPosts.size() > 2){
+        displayedPosts[2]->like();
+        social_network->writePosts("posts.txt");
+        displayProfile(profile_user);
+    }
+}
+void MainWindow::likePost4(){
+    if(displayedPosts.size() > 3){
+        displayedPosts[3]->like();
+        social_network->writePosts("posts.txt");
+        displayProfile(profile_user);
+    }
+}
+void MainWindow::likePost5(){
+    if(displayedPosts.size() > 4){
+        displayedPosts[4]->like();
+        social_network->writePosts("posts.txt");
         displayProfile(profile_user);
     }
 }

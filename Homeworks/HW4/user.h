@@ -11,6 +11,7 @@ class User {
                 int year_;
                 int zip_;
                 std::set<int> friends_;
+                bool darkmode_;
 
         public:
                 //Constructors
@@ -51,6 +52,13 @@ class User {
                 //Pre: The ID of the friend.
                 //Post: Deletes the ID of the friend from the User's friend set.
                 void deleteFriend(int id);
+
+                //Pre: n/a
+                //Post: Return the dark mode for the user
+                bool getDarkMode() const;
+                //Pre: a boolean representing if we want dark mode or not.
+                //Post: sets the user's darkmode according to the boolean value
+                void setDarkMode(bool on);
 };
 
 #endif
